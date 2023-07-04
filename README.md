@@ -26,6 +26,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+ In this project you can properly manage posts from different social medias.
+
 ## Installation
 
 ```bash
