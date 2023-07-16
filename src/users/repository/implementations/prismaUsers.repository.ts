@@ -8,7 +8,7 @@ export class PrismaUsersRepository implements UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async createUser(data: CreateUserDTO) {
-    return await this.prisma.user.create({ data: data });
+    return await this.prisma.user.create({ data });
   }
   async findUserByEmail(email: string) {
     return await this.prisma.user.findUnique({ where: { email } });
