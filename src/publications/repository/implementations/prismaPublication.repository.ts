@@ -7,15 +7,16 @@ import { CreatePublicationDTO } from 'src/publications/dto/publication.dto';
 export class PrismaPublicationRepository implements PublicationRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createPublication(data: CreatePublicationDTO) {
+  async createPublication(data: CreatePublicationDTO, userId: number) {
     const convertedData = {
       ...data,
       dateToPublish: data.dateToPublish.toString(),
+      userId: userId,
     };
     return await this.prisma.publication.create({ data: convertedData });
   }
 
   async findPublicationByUser(id: number) {
-    return await this.prisma.publication.findFirst({ where: { id } });
+    return await this.prisma.publication.findMany({ where: { userId: id } });
   }
 }

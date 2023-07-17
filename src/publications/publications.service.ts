@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PublicationRepository } from './repository/publication.repository';
+import { CreatePublicationDTO } from './dto/publication.dto';
 
 @Injectable()
 export class PublicationsService {
@@ -14,5 +15,9 @@ export class PublicationsService {
         HttpStatus.NO_CONTENT,
       );
     return publications;
+  }
+
+  async createPublication(data: CreatePublicationDTO, userId) {
+    await this.publicationsRepository.createPublication(data, userId);
   }
 }
