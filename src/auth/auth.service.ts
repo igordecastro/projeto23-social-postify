@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthSigninDTO } from './dto/auth-signin.dto';
 import * as bcrypt from 'bcrypt';
@@ -36,5 +40,19 @@ export class AuthService {
     );
 
     return { token };
+  }
+
+  checkToken(token: string) {
+    try {
+      const data = this.jwtService.verify(token, {
+        issuer: this.ISSUER,
+        audience: this.AUDIENCE,
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error);
+    }
   }
 }

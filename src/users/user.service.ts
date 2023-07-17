@@ -17,4 +17,10 @@ export class UsersService {
       password: hashPassword,
     });
   }
+
+  async findUserById(id: number) {
+    const user = await this.usersRepository.findUserById(id);
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;
+  }
 }
